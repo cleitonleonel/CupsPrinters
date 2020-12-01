@@ -1,6 +1,6 @@
 #!/bin/bash
 echo 'Iniciando Intalação do Sistema...'
-sudo apt update & sudo apt --list upgradable & sudo apt upgrade -y
+sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
 echo 'Instalando arquivo de dependências...'
 wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/install-dep.sh -O dependencies.sh
