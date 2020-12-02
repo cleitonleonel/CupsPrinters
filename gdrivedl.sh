@@ -6,6 +6,7 @@ filename=$2
 [ -z "$url" ] && echo A URL or ID is required first argument && exit 1
 
 fileid=""
+
 declare -a patterns=("s/.*\/file\/d\/\(.*\)\/.*/\1/p" "s/.*id\=\(.*\)/\1/p" "s/\(.*\)/\1/p")
 for i in "${patterns[@]}"
 do
@@ -22,6 +23,7 @@ tmp_cookies="$filename.$$.cookies"
 tmp_headers="$filename.$$.headers"
 
 url='https://docs.google.com/uc?export=download&id='$fileid
+
 echo Downloading: "$url > $tmp_file"
 wget --save-cookies "$tmp_cookies" -q -S -O - $url 2> "$tmp_headers" 1> "$tmp_file"
 
