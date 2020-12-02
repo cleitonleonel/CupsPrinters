@@ -21,7 +21,25 @@ sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-con
 sudo apt install cups-bsd -y
 
 echo 'Instalando libsnfe4...'
-wget https://github.com/cleitonleonel/CupsPrinters/raw/master/libsnfe4.zip -O libs-nfe4.zip
+#sudo chmod +x ./gdrivedl.sh
+
+#./gdrivedl https://drive.google.com/file/d/1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl/view?usp=sharing libs-nfe4.zip
+
+gdrive_download () {
+  #export fileid=1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl
+  #export filename=libs-nfe4.zip
+
+  fileid=$1
+  filename=$2
+
+  wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='$fileid -O- \
+       | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1/p' > confirm.txt
+
+  wget --load-cookies cookies.txt -O $filename \
+       'https://docs.google.com/uc?export=download&id='$fileid'&confirm='$(<confirm.txt)
+}
+
+gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
 
 echo 'Extraindo arquivos na raíz...'
 sudo unzip -o libs-nfe4.zip -d /
