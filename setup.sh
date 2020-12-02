@@ -20,6 +20,7 @@ sudo apt install cups -y
 sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-config-printer -y
 sudo apt install cups-bsd -y
 
+
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
 
