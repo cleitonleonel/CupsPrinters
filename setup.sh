@@ -22,6 +22,11 @@ sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-con
 sudo apt install cups-bsd -y
 
 
+echo 'Instalando arquivo de configuração do CUPS...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/cupsd.conf -O /etc/cups/cupsd.conf
+
+sudo /etc/init.d/cups restart
+
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
 
