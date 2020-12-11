@@ -4,7 +4,7 @@ echo 'Iniciando Intalação do Sistema...'
 sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
 echo 'Instalando arquivo de dependências...'
-wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/install-dep.sh -O dependencies.sh
+wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/dependencies.sh -O dependencies.sh
 
 echo 'Dando permissão ao arquivo...'
 chmod +x ./dependencies.sh
@@ -46,10 +46,10 @@ gdrive_download () {
        'https://docs.google.com/uc?export=download&id='$fileid'&confirm='$(<confirm.txt)
 }
 
-gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
+#gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
 
 echo 'Extraindo arquivos na raíz...'
-sudo unzip -o libs-nfe4.zip -d /
+#sudo unzip -o libs-nfe4.zip -d /
 
 echo 'Dando permissão a pasta www-data...'
 sudo chown -R www-data:www-data -R /var/www/melinux
