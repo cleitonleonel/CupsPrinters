@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 echo 'Iniciando Intalação do Sistema...'
 sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
@@ -20,6 +20,9 @@ sudo apt-get install wkhtmltopdf -y
 sudo apt install cups -y
 sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-config-printer -y
 sudo apt install cups-bsd -y
+sudo apt install mutt -y
+sudo apt install ssh -y
+sudo apt install putty -y
 
 
 echo 'Instalando arquivo de configuração do CUPS...'
@@ -46,10 +49,10 @@ gdrive_download () {
        'https://docs.google.com/uc?export=download&id='$fileid'&confirm='$(<confirm.txt)
 }
 
-#gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
+gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
 
 echo 'Extraindo arquivos na raíz...'
-#sudo unzip -o libs-nfe4.zip -d /
+sudo unzip -o libs-nfe4.zip -d /
 
 echo 'Dando permissão a pasta www-data...'
 sudo chown -R www-data:www-data -R /var/www/melinux
