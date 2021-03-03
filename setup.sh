@@ -23,6 +23,7 @@ sudo apt install cups-bsd -y
 sudo apt install mutt -y
 sudo apt install ssh -y
 sudo apt install putty -y
+sudo apt install net-tools -y
 
 
 echo 'Instalando arquivo de configuração do CUPS...'
