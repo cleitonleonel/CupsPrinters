@@ -25,11 +25,53 @@ sudo apt install ssh -y
 sudo apt install putty -y
 sudo apt install net-tools -y
 
+echo 'Criando usuário melinux'
+sudo su
+
+if [ $(id -u) -eq 0 ]; then
+	username='melinux'
+	password='melinux'
+	grep "^$username" /etc/passwd >/dev/null
+	if [ $? -eq 0 ]; then
+		echo "$username exists!"
+		exit 1
+	else
+		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+		useradd -m -p $pass $username
+		[ $? -eq 0 ] && echo "Usuário adicionado ao sistema!" || echo "Falha ao adicionar usuário!"
+	fi
+else
+	echo "Apenas o root pode adicionar um usuário ao sistema"
+	exit 2
+fi
+
+echo 'Dando permissões ao usuário melinux'
+chmod -R 777 /home/melinux
+chown -R melinux:melinux /home/melinux
+
+echo 'Instalando arquivo de configuração do Apache2 para acesso a localhost/nfe e emissão de NFe e NFCe...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/000-default.conf -O /etc/apache2/sites-enabled/000-default.conf
+
+echo 'Instalando arquivo de configuração do Hosts...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/hosts -O /etc/hosts
+
+echo 'Instalando arquivo de configuração do Rede...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml
+
+echo 'Restart Apache...'
+/etc/init.d/apache2 restart
 
 echo 'Instalando arquivo de configuração do CUPS...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/cupsd.conf -O /etc/cups/cupsd.conf
 
+echo 'Restart CUPS...'
 sudo /etc/init.d/cups restart
+
+echo 'Instalando arquivo de configuraçãodo samba'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/smb.conf -O /etc/samba/smb.conf
+
+echo 'Restart Samba'
+/etc/init.d/smbd restart
 
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
@@ -61,3 +103,5 @@ sudo chmod 777 -R /var/www/melinux
 
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
+
+echo'Instalação Concluída...'
