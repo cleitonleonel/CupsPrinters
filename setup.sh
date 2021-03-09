@@ -45,6 +45,9 @@ else
 	exit 2
 fi
 
+echo 'Adicionando usuário ao sudoers'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/sudoers -O /etc/sudoers
+
 echo 'Dando permissões ao usuário melinux'
 chmod -R 777 /home/melinux
 chown -R melinux:melinux /home/melinux
