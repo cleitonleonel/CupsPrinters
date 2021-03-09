@@ -72,7 +72,7 @@ echo 'Instalando arquivo de configuraçãodo samba'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/smb.conf -O /etc/samba/smb.conf
 
 echo 'Restart Samba'
-/etc/init.d/smbd restart
+sudo /etc/init.d/smbd restart
 
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
