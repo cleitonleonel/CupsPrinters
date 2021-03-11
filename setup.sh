@@ -60,24 +60,29 @@ chown -R melinux:melinux /home/melinux
 
 echo 'Instalando arquivo de configuração do Apache2 para acesso a localhost/nfe e emissão de NFe e NFCe...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/000-default.conf -O /etc/apache2/sites-enabled/000-default.conf
+sudo chmod 777 /etc/apache2/sites-enabled/000-default.conf
 
 echo 'Instalando arquivo de configuração do Hosts...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/hosts -O /etc/hosts
+sudo chmod 777 /etc/hosts
 
 echo 'Instalando arquivo de configuração do Rede...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml
+sudo chmod 777 /etc/netplan/00-installer-config.yaml
 
 echo 'Restart Apache...'
 /etc/init.d/apache2 restart
 
 echo 'Instalando arquivo de configuração do CUPS...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/cupsd.conf -O /etc/cups/cupsd.conf
+sudo chmod 777 /etc/cups/cupsd.conf
 
 echo 'Restart CUPS...'
 sudo /etc/init.d/cups restart
 
 echo 'Instalando arquivo de configuraçãodo samba'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/smb.conf -O /etc/samba/smb.conf
+sudo chmod 777 /etc/samba/smb.conf
 
 echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
