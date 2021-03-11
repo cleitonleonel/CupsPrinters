@@ -14,8 +14,8 @@ sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
 echo 'Instalando libs extra...'
 sudo apt install libhdf5-dev -y
-sudo apt install -y libpq-dev -y
-sudo apt install -y libssl-dev zlib1g-dev gcc g++ make
+sudo apt install libpq-dev -y
+sudo apt install libssl-dev zlib1g-dev gcc g++ make -y
 sudo apt-get install wkhtmltopdf -y
 sudo apt install cups -y
 sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-config-printer -y
