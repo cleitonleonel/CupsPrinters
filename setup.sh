@@ -3,14 +3,14 @@
 echo 'Iniciando Intalação do Sistema...'
 sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
-echo 'Instalando arquivo de dependências...'
-wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/dependencies.sh -O dependencies.sh
+#echo 'Instalando arquivo de dependências...'
+#wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/dependencies.sh -O dependencies.sh
 
-echo 'Dando permissão ao arquivo...'
-chmod +x ./dependencies.sh
+#echo 'Dando permissão ao arquivo...'
+#chmod +x ./dependencies.sh
 
-echo 'Executando setup de dependências...'
-./dependencies.sh
+#echo 'Executando setup de dependências...'
+#./dependencies.sh
 
 echo 'Instalando libs extra...'
 sudo apt install libhdf5-dev -y
@@ -24,6 +24,14 @@ sudo apt install mutt -y
 sudo apt install ssh -y
 sudo apt install putty -y
 sudo apt install net-tools -y
+sudo apt install samba -y
+sudo apt install apache2 php php-cli libapache2-mod-php curl -y
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+sudo apt install git php-gd php-xml php-xmlrpc php-curl php-soap php-zip php-mbstring libphp-embed -y
+sudo apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smbclient -y
+sudo apt install ttf-mscorefonts-installer -y
+sudo apt install printer-driver-all -y
 
 echo 'Criando usuário melinux'
 
