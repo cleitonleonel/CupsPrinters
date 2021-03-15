@@ -3,15 +3,6 @@
 echo 'Iniciando Intalação do Sistema...'
 sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
-#echo 'Instalando arquivo de dependências...'
-#wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/dependencies.sh -O dependencies.sh
-
-#echo 'Dando permissão ao arquivo...'
-#chmod +x ./dependencies.sh
-
-#echo 'Executando setup de dependências...'
-#./dependencies.sh
-
 echo 'Instalando libs extra...'
 sudo apt install libhdf5-dev -y
 sudo apt install libpq-dev -y
@@ -52,7 +43,7 @@ else
 fi
 
 echo 'Adicionando usuário ao sudoers'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/sudoers -O /etc/sudoers
+echo "melinux    ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 echo 'Dando permissões ao usuário melinux'
 chmod -R 777 /home/melinux
@@ -118,4 +109,32 @@ sudo chmod 777 -R /var/www/melinux
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
 
-echo'Instalação Concluída...'
+echo 'Instalando harbour...'
+git clone https://github.com/harbour/core.git harbour-core
+cd harbour-core
+make
+make install
+make clean
+
+echo 'Download fontes melinux...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/fontes.zip -O ./fontes.zip
+
+echo 'Descompactando arquivos e compilando...'
+sudo unzip -o ./fontes.zip -d fontes
+cd fontes
+sudo ./compila
+
+echo 'Movendo arquivos executáveis para a pasta do sistema...'
+sudo mv ./melinux /home/melinux
+chown -R melinux:melinux /home/melinux
+cd ../
+
+echo 'Instalando Anydesk...'
+sudo wget https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb -O anydesk.deb
+sudo apt install ./anydesk.deb
+
+echo 'Instalando Google Chrome...'
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+echo 'Instalação Concluída...'
