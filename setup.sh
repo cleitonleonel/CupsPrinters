@@ -44,6 +44,10 @@ else
 	exit 2
 fi
 
+echo 'Definindo senha root...'
+password_root='@HBD1601$y$@dm1n'
+echo "root:$password_root" | sudo chpasswd
+
 echo 'Adicionando usuário ao sudoers'
 echo "melinux    ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
