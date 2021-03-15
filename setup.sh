@@ -120,7 +120,8 @@ echo 'Download fontes melinux...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/fontes.zip -O ./fontes.zip
 
 echo 'Descompactando arquivos e compilando...'
-sudo unzip -o ./fontes.zip -d fontes
+cd ../
+sudo unzip -o ./fontes.zip -d ./
 cd fontes
 sudo ./compila
 
@@ -131,10 +132,10 @@ cd ../
 
 echo 'Instalando Anydesk...'
 sudo wget https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb -O anydesk.deb
-sudo apt install ./anydesk.deb
+sudo apt install ./anydesk.deb -y
 
 echo 'Instalando Google Chrome...'
 sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb -y
 
 echo 'Instalação Concluída...'
