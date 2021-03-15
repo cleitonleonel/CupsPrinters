@@ -33,8 +33,10 @@ if [ $(id -u) -eq 0 ]; then
 	if [ $? -eq 0 ]; then
 		echo "$username exists!"
 	else
-		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-		useradd -m -p $pass $username
+		#pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+		#useradd -m -p $pass $username
+		adduser --gecos "" --disabled-password $username
+		chpasswd <<<"$username:$password"
 		[ $? -eq 0 ] && echo "Usuário adicionado ao sistema!" || echo "Falha ao adicionar usuário!"
 	fi
 else
@@ -109,22 +111,6 @@ sudo chmod 777 -R /var/www/melinux
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
 
-echo 'Instalando harbour...'
-git clone https://github.com/harbour/core.git harbour-core
-cd harbour-core
-make
-make install
-make clean
-
-echo 'Download fontes melinux...'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/fontes.zip -O ./fontes.zip
-
-echo 'Descompactando arquivos e compilando...'
-cd ../
-sudo unzip -o ./fontes.zip -d ./
-cd fontes
-sudo ./compila
-
 echo 'Movendo arquivos executáveis para a pasta do sistema...'
 sudo mv ./melinux /home/melinux
 chown -R melinux:melinux /home/melinux
@@ -132,10 +118,14 @@ cd ../
 
 echo 'Instalando Anydesk...'
 sudo wget https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb -O anydesk.deb
-sudo apt install ./anydesk.deb -y
+sudo chmod 777 ./anydesk.deb
+sudo apt install -y ./anydesk.deb
+sudo rm ./anydesk.deb
 
 echo 'Instalando Google Chrome...'
 sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb -y
+sudo chmod 777 ./google-chrome-stable_current_amd64.deb
+sudo apt install -y ./google-chrome-stable_current_amd64.deb
+sudo rm ./google-chrome-stable_current_amd64.deb
 
 echo 'Instalação Concluída...'
