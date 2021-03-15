@@ -123,6 +123,6 @@ sudo chmod 777 ./google-chrome-stable_current_amd64.deb
 sudo apt install -y ./google-chrome-stable_current_amd64.deb
 sudo rm ./google-chrome-stable_current_amd64.deb
 
-sudo apt autoremove
+sudo apt autoremove -y
 
 echo 'Instalação Concluída...'
