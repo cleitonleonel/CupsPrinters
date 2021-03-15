@@ -111,11 +111,6 @@ sudo chmod 777 -R /var/www/melinux
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
 
-echo 'Movendo arquivos executáveis para a pasta do sistema...'
-sudo mv ./melinux /home/melinux
-chown -R melinux:melinux /home/melinux
-cd ../
-
 echo 'Instalando Anydesk...'
 sudo wget https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb -O anydesk.deb
 sudo chmod 777 ./anydesk.deb
@@ -127,5 +122,7 @@ sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.
 sudo chmod 777 ./google-chrome-stable_current_amd64.deb
 sudo apt install -y ./google-chrome-stable_current_amd64.deb
 sudo rm ./google-chrome-stable_current_amd64.deb
+
+sudo apt autoremove
 
 echo 'Instalação Concluída...'
