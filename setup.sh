@@ -85,6 +85,8 @@ echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
 
 echo 'Instalando arquivo de configuração do Putty'
+sudo mkdir /home/usuario/.putty/sessions/
+sudo chmod 777 /home/usuario/.putty
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/usuario/.putty/sessions/melinux
 sudo chmod 777 /home/usuario/.putty/sessions/melinux
 
