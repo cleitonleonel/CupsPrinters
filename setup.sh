@@ -63,7 +63,7 @@ echo 'Instalando arquivo de configuração do Hosts...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/hosts -O /etc/hosts
 sudo chmod 777 /etc/hosts
 
-echo 'Instalando arquivo de configuração do Rede...'
+echo 'Instalando arquivo de configuração de Rede...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml
 sudo chmod 777 /etc/netplan/00-installer-config.yaml
 
@@ -77,12 +77,16 @@ sudo chmod 777 /etc/cups/cupsd.conf
 echo 'Restart CUPS...'
 sudo /etc/init.d/cups restart
 
-echo 'Instalando arquivo de configuraçãodo samba'
+echo 'Instalando arquivo de configuração do samba'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/smb.conf -O /etc/samba/smb.conf
 sudo chmod 777 /etc/samba/smb.conf
 
 echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
+
+echo 'Instalando arquivo de configuração do Putty'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/usuario/.putty/sessions/melinux
+sudo chmod 777 /home/usuario/.putty/sessions/melinux
 
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
@@ -104,6 +108,9 @@ gdrive_download () {
 }
 
 gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
+
+sudo rm ./confirm.txt
+sudo rm ./cookies.txt
 
 echo 'Extraindo arquivos na raíz...'
 sudo unzip -o libs-nfe4.zip -d /
