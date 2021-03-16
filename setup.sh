@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 echo 'Iniciando Intalação do Sistema...'
 sudo apt update & sudo apt list --upgradable & sudo apt upgrade -y
 
