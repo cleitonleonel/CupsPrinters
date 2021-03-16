@@ -86,10 +86,14 @@ echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
 
 echo 'Instalando arquivo de configuração do Putty'
-sudo mkdir -p /home/usuario/.putty/sessions/
-sudo chmod 777 /home/usuario/.putty
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/usuario/.putty/sessions/melinux
-sudo chmod 777 /home/usuario/.putty/sessions/melinux
+sudo mkdir -p /home/$USER/.putty/sessions/
+sudo chmod 777 /home/$USER/.putty
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/$USER/.putty/sessions/melinux
+sudo chmod 777 /home/$USER/.putty/sessions/melinux
+
+echo 'Correção necessária para possíveis erros de ssh'
+sudo rm /etc/ssh/ssh_host_*
+sudo dpkg-reconfigure openssh-server
 
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
