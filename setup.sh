@@ -66,6 +66,7 @@ sudo chmod 777 /etc/hosts
 echo 'Instalando arquivo de configuração de Rede...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml
 sudo chmod 777 /etc/netplan/00-installer-config.yaml
+sudo rm /etc/netplan/01-network-manager-all.yaml
 
 echo 'Restart Apache...'
 /etc/init.d/apache2 restart
@@ -85,7 +86,7 @@ echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
 
 echo 'Instalando arquivo de configuração do Putty'
-sudo mkdir /home/usuario/.putty/sessions/
+sudo mkdir -p /home/usuario/.putty/sessions/
 sudo chmod 777 /home/usuario/.putty
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/usuario/.putty/sessions/melinux
 sudo chmod 777 /home/usuario/.putty/sessions/melinux
