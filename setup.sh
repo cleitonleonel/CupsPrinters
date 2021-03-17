@@ -53,7 +53,6 @@ echo "melinux    ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 echo 'Dando permissões ao usuário melinux'
 chmod -R 777 /home/melinux
-chown -R melinux:melinux /home/melinux
 
 echo 'Instalando arquivo de configuração do Apache2 para acesso a localhost/nfe e emissão de NFe e NFCe...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/000-default.conf -O /etc/apache2/sites-enabled/000-default.conf
@@ -142,5 +141,14 @@ sudo apt install -y ./google-chrome-stable_current_amd64.deb
 sudo rm ./google-chrome-stable_current_amd64.deb
 
 sudo apt autoremove -y
+
+echo 'Instalando base do sistema melinux...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux.zip -O melinux.zip
+sudo unzip -o melinux.zip -d /home/melinux
+chown -R melinux:melinux /home/melinux
+
+echo 'Adicionando executável ao ~/.bashrc'
+echo -e "\n./melinux" >> /home/melinux/.bashrc
+
 
 echo 'Instalação Concluída...'
