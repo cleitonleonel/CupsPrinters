@@ -49,7 +49,7 @@ password_root='@HBD1601$y$@dm1n'
 echo "root:$password_root" | sudo chpasswd
 
 echo 'Adicionando usuário ao sudoers'
-echo "melinux    ALL=(ALL:ALL) ALL" >> /etc/sudoers
+echo "melinux    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 echo 'Dando permissões ao usuário melinux'
 chmod -R 777 /home/melinux
@@ -120,6 +120,7 @@ sudo rm ./cookies.txt
 
 echo 'Extraindo arquivos na raíz...'
 sudo unzip -o libs-nfe4.zip -d /
+sudo rm ./libs-nfe4.zip
 
 echo 'Dando permissão a pasta www-data...'
 sudo chown -R www-data:www-data -R /var/www/melinux
@@ -144,11 +145,16 @@ sudo apt autoremove -y
 
 echo 'Instalando base do sistema melinux...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux.zip -O melinux.zip
+sudo chmod 777 ./melinux.zip
+
 sudo unzip -o melinux.zip -d /home/melinux
+sudo mv /home/melinux/base_melinux/* /home/melinux
+sudo rm -r /home/melinux/base_melinux
+sudo chmod 777 /home/melinux/*
 chown -R melinux:melinux /home/melinux
+sudo rm ./melinux.zip
 
 echo 'Adicionando executável ao ~/.bashrc'
 echo -e "\n./melinux" >> /home/melinux/.bashrc
-
 
 echo 'Instalação Concluída...'
