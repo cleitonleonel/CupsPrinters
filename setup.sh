@@ -34,7 +34,7 @@ if [ $(id -u) -eq 0 ]; then
 		echo "$username exists!"
 	else
 		adduser --gecos "" --disabled-password $username
-		echo "$username:$password_root" | sudo chpasswd
+		echo "$username:$password" | sudo chpasswd
 		[ $? -eq 0 ] && echo "Usuário adicionado ao sistema!" || echo "Falha ao adicionar usuário!"
 	fi
 else
