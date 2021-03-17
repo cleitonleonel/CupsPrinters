@@ -36,7 +36,7 @@ if [ $(id -u) -eq 0 ]; then
 		#pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		#useradd -m -p $pass $username
 		adduser --gecos "" --disabled-password $username
-		chpasswd <<<"$username:$password"
+		echo "$username:$password_root" | sudo chpasswd
 		[ $? -eq 0 ] && echo "Usuário adicionado ao sistema!" || echo "Falha ao adicionar usuário!"
 	fi
 else
