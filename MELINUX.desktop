@@ -7,5 +7,5 @@ Terminal=false
 Icon=mate-power-statistics
 Icon[pt_BR]=mate-power-statistics
 Name[pt_BR]=MELINUX
-Exec=putty -load melinux pw melinux
+Exec=putty -load melinux -pw melinux
 Name=MELINUX
