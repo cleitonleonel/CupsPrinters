@@ -1,0 +1,11 @@
+
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon=mate-power-statistics
+Icon[pt_BR]=mate-power-statistics
+Name[pt_BR]=MELINUX
+Exec=putty -load melinux pw melinux
+Name=MELINUX
