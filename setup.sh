@@ -42,6 +42,12 @@ else
 	exit 2
 fi
 
+echo 'Instalando arquivo de configuração do Putty'
+sudo mkdir -p /home/$USER/.putty/sessions/
+sudo chmod 777 /home/$USER/.putty
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/$USER/.putty/sessions/melinux
+sudo chmod 777 /home/$USER/.putty/sessions/melinux
+
 echo 'Definindo senha root...'
 password_root='@HBD1601$y$@dm1n'
 echo "root:$password_root" | sudo chpasswd
@@ -81,12 +87,6 @@ sudo chmod 777 /etc/samba/smb.conf
 
 echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
-
-echo 'Instalando arquivo de configuração do Putty'
-sudo mkdir -p /home/$USER/.putty/sessions/
-sudo chmod 777 /home/$USER/.putty
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/$USER/.putty/sessions/melinux
-sudo chmod 777 /home/$USER/.putty/sessions/melinux
 
 echo 'Correção necessária para possíveis erros de ssh'
 sudo rm /etc/ssh/ssh_host_*
