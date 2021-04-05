@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Melinux
+GenericName=Melinux
+Comment=Connect to an SSH melinux with PuTTY
+Type=Application
+Exec=putty -load melinux -pw melinux
+Icon=~/Downloads/melinux.ico
+Keywords=ssh;connect;
+Categories=GTK;Network;
