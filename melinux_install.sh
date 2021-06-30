@@ -121,7 +121,8 @@ echo 'Extraindo arquivos na raíz...'
 sudo unzip -o libs-nfe4.zip -d / 
 sudo rm ./libs-nfe4.zip
 
-echo 'Dando permissão a pasta www-data...' 
+echo 'Dando permissão a pasta www-data...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/Danfce.php -O /var/www/melinux/nfe/libs/Extras/Danfce.php
 sudo chown -R www-data:www-data -R /var/www/melinux 
 sudo chmod 777 -R /var/www/melinux
 
@@ -152,8 +153,9 @@ sudo chmod 777 -R /home/melinux
 chown -R melinux:melinux /home/melinux 
 sudo rm ./melinux.zip
 
-echo 'Adicionando executável ao ~/.bashrc' 
-echo -e "./melinux" >> /home/melinux/.bashrc
+echo 'Adicionando executável ao ~/.bashrc'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/.bashrc -O /home/melinux/.bashrc
+#echo -e "./melinux" >> /home/melinux/.bashrc
 
 echo "Criando atalhos do sistema..." 
 sudo ln -sf /home/melinux/01/relatorios /home/$SUDO_USER/'Área de Trabalho'/RELATÓRIOS
@@ -161,11 +163,11 @@ sudo ln -sf /home/melinux/01/nfe/xmls /home/$SUDO_USER/'Área de Trabalho'/XMLS
 sudo ln -sf /home/melinux/01/governo /home/$SUDO_USER/'Área de Trabalho'/GOVERNO
 sudo ln -sf /home/melinux/01/nfe/danfes /home/$SUDO_USER/'Área de Trabalho'/DANFES
 sudo cp /usr/share/applications/google-chrome.desktop /home/$SUDO_USER/'Área de Trabalho' 
-sudo chmod 555 /home/$SUDO_USER/'Área de Trabalho'/google-chrome.desktop
+sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/google-chrome.desktop
 sudo cp /usr/share/applications/anydesk.desktop /home/$SUDO_USER/'Área de Trabalho' 
-sudo chmod 555 /home/$SUDO_USER/'Área de Trabalho'/anydesk.desktop
+sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/anydesk.desktop
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/MELINUX.desktop -O /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
-sudo chmod 555 /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
+sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
 
 echo 'Instalação Concluída...'
 exit
