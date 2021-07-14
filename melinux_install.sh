@@ -121,9 +121,16 @@ echo 'Extraindo arquivos na raíz...'
 sudo unzip -o libs-nfe4.zip -d / 
 sudo rm ./libs-nfe4.zip
 
-echo 'Dando permissão a pasta www-data...'
+echo 'Instalando dependências de libsnfe...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/Danfce.php -O /var/www/melinux/nfe/libs/Extras/Danfce.php
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/img.zip -O img.zip
+sudo unzip img.zip -d /var/www/melinux/
+sudo rm ./img.zip
 sudo chown -R www-data:www-data -R /var/www/melinux 
+sudo chmod 777 -R /var/www/melinux
+
+echo 'Dando permissão a www-data...'
+sudo chown -R www-data:www-data -R /var/www/melinux
 sudo chmod 777 -R /var/www/melinux
 
 echo 'Visualisando permissões do diretório base...' 
