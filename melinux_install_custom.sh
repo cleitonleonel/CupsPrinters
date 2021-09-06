@@ -47,6 +47,23 @@ else
 	exit 2
 fi
 
+echo 'Criando usuário usuario'
+if [ $(id -u) -eq 0 ]; then
+	username='usuario'
+	password='usuario123'
+	grep "$username" /etc/passwd >/dev/null
+	if [ $? -eq 0 ]; then
+		echo "$username exists!"
+	else
+		adduser --gecos "" --disabled-password $username
+		echo "$username:$password" | chpasswd
+		[ $? -eq 0 ] && echo "Usuário adicionado ao sistema!" || echo "Falha ao adicionar usuário!"
+	fi
+else
+	echo "Apenas o root pode adicionar um usuário ao sistema"
+	exit 2
+fi
+
 echo 'Definindo senha root...' 
 password_root='@HBD1601$y$@dm1n' 
 echo "root:$password_root" | chpasswd
@@ -56,6 +73,7 @@ echo 'Adicionando usuário ao sudoers'
 #echo "melinux    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 #sed -i '$d' /etc/sudoers
 sh -c "echo 'melinux    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+sh -c "echo 'usuario    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
 
 echo 'Dando permissões ao usuário melinux' 
 chmod -R 777 /home/melinux
