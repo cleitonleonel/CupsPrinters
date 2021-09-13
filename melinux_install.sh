@@ -68,6 +68,10 @@ echo 'Instalando arquivo de configuração do Hosts...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/hosts -O /etc/hosts 
 sudo chmod 777 /etc/hosts
 
+echo 'Instalando DBU, gerenciador de base de dados dbf...'
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/config/linux/ubuntu/dbu -O /usr/bin/dbu
+sudo chmod 777 /usr/bin/dbu
+
 echo 'Instalando arquivo de configuração de Rede...' 
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml 
 sudo chmod 777 /etc/netplan/00-installer-config.yaml 
