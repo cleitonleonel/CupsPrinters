@@ -25,9 +25,11 @@ sudo apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smb
 sudo apt install ttf-mscorefonts-installer -y 
 sudo apt install printer-driver-all -y
 
+. /etc/os-release
 
-sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb -O wkhtmltox_0.12.6-1.focal_amd64.deb
-sudo apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
+#sudo wget 'https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb'
+sudo wget 'https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb -O wkhtmltox_0.12.6-1.focal_amd64.deb'
+sudo apt install -y './wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
 echo 'Criando usuário melinux'
@@ -106,10 +108,11 @@ sudo dpkg-reconfigure openssh-server
 
 echo 'Instalando libsnfe4...' 
 #sudo chmod +x ./gdrivedl.sh 
-#./gdrivedl https://drive.google.com/file/d/1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl/view?usp=sharing libs-nfe4.zip 
-gdrive_download () { 
-	#export fileid=1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl 
-	#export filename=libs-nfe4.zip 
+#./gdrivedl https://drive.google.com/file/d/1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl/view?usp=sharing libs-nfe4.zip
+
+#export fileid=1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl
+#export filename=libs-nfe4.zip
+gdrive_download () {
 	fileid=$1 
 	filename=$2 
 	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='$fileid -O- | sed -rn "s/.*confirm=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
