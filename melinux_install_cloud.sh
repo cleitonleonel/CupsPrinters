@@ -23,6 +23,7 @@ sudo apt install git php7.4-gd php7.4-xml php7.4-xmlrpc php7.4-curl php7.4-soap 
 sudo apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smbclient -y
 sudo apt install ttf-mscorefonts-installer -y
 sudo apt install printer-driver-all -y
+sudo apt install dialog -y
 
 os_version=$(lsb_release -rs)
 . /etc/os-release
@@ -39,9 +40,9 @@ fi
 sudo apt install -y './wkhtmltox_0.12.6.1.'$VERSION_CODENAME'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
-echo 'Criando usuário melinux'
+echo 'Criando usuário otma'
 if [ $(id -u) -eq 0 ]; then
-	username='melinux'
+	username='otma'
 	password='melinux'
 	grep "$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
@@ -56,17 +57,10 @@ else
 	exit 2
 fi
 
-echo 'Definindo senha root...'
-password_root='@HBD1601$y$@dm1n'
-echo "root:$password_root" | sudo chpasswd
+echo 'Adicionando usuário otma ao sudoers'
+sudo sh -c "echo 'otma    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
 
-echo 'Adicionando usuário ao sudoers'
-#echo "" >> /etc/sudoers
-#echo "melinux    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-#sudo sed -i '$d' /etc/sudoers
-sudo sh -c "echo 'melinux    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
-
-echo 'Dando permissões ao usuário melinux'
+echo 'Dando permissões ao usuário otma'
 chmod -R 777 /home/melinux
 
 echo 'Instalando arquivo de configuração do Apache2 para acesso a localhost/nfe e emissão de NFe e NFCe...'
@@ -80,16 +74,6 @@ sudo chmod 777 /etc/hosts
 echo 'Instalando DBU, gerenciador de base de dados dbf...'
 sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/config/linux/ubuntu/dbu -O /usr/bin/dbu
 sudo chmod 777 /usr/bin/dbu
-
-echo 'Instalando arquivo de configuração de Rede...'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/00-installer-config.yaml -O /etc/netplan/00-installer-config.yaml
-sudo chmod 777 /etc/netplan/00-installer-config.yaml
-sudo rm /etc/netplan/01-network-manager-all.yaml
-
-echo 'Instalando arquivo de instalação e configuração de acesso remoto...'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/config/linux/ubuntu/install_dwagent.sh -O /install_dwagent.sh
-sudo chmod +x ./install_dwagent.sh
-sudo ./install_dwagent.sh
 
 echo 'Restart Apache...'
 /etc/init.d/apache2 restart
@@ -107,12 +91,6 @@ sudo chmod 777 /etc/samba/smb.conf
 
 echo 'Restart Samba'
 sudo /etc/init.d/smbd restart
-
-echo 'Instalando arquivo de configuração do Putty'
-sudo mkdir -p /home/$SUDO_USER/.putty/sessions/
-sudo chmod 777 /home/$SUDO_USER/.putty
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/$SUDO_USER/.putty/sessions/melinux
-sudo chmod 777 /home/$SUDO_USER/.putty/sessions/melinux
 
 echo 'Correção necessária para possíveis erros de ssh'
 sudo rm /etc/ssh/ssh_host_*
@@ -154,46 +132,6 @@ sudo chmod 777 -R /var/www/melinux
 
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
-
-echo 'Instalando Anydesk...'
-sudo wget https://download.anydesk.com/linux/anydesk_6.1.0-1_amd64.deb -O anydesk.deb
-sudo chmod 777 ./anydesk.deb
-sudo apt install -y ./anydesk.deb
-sudo rm ./anydesk.deb
-
-echo 'Instalando Google Chrome...'
-sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo chmod 777 ./google-chrome-stable_current_amd64.deb
-sudo apt install -y ./google-chrome-stable_current_amd64.deb
-sudo rm ./google-chrome-stable_current_amd64.deb
-sudo apt autoremove -y
-
-echo 'Instalando base do sistema melinux...'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux.zip -O melinux.zip
-sudo chmod 777 ./melinux.zip
-sudo rm -r /home/melinux
-sudo unzip -o melinux.zip -d /home
-sudo mv /home/melinux/base_melinux/* /home/melinux
-sudo rm -r /home/melinux/base_melinux
-sudo chmod 777 -R /home/melinux
-chown -R melinux:melinux /home/melinux
-sudo rm ./melinux.zip
-
-echo 'Adicionando executável ao ~/.bashrc'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/.bashrc -O /home/melinux/.bashrc
-#echo -e "./melinux" >> /home/melinux/.bashrc
-
-echo "Criando atalhos do sistema..."
-sudo ln -sf /home/melinux/01/relatorios /home/$SUDO_USER/'Área de Trabalho'/RELATÓRIOS
-sudo ln -sf /home/melinux/01/nfe/xmls /home/$SUDO_USER/'Área de Trabalho'/XMLS
-sudo ln -sf /home/melinux/01/governo /home/$SUDO_USER/'Área de Trabalho'/GOVERNO
-sudo ln -sf /home/melinux/01/nfe/danfes /home/$SUDO_USER/'Área de Trabalho'/DANFES
-sudo cp /usr/share/applications/google-chrome.desktop /home/$SUDO_USER/'Área de Trabalho'
-sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/google-chrome.desktop
-sudo cp /usr/share/applications/anydesk.desktop /home/$SUDO_USER/'Área de Trabalho'
-sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/anydesk.desktop
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/MELINUX.desktop -O /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
-sudo chmod 755 /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
 
 echo 'Instalação Concluída...'
 exit

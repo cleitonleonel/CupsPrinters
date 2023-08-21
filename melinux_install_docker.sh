@@ -8,7 +8,6 @@ echo 'Instalando libs extra...'
 sudo apt install libhdf5-dev -y
 sudo apt install libpq-dev -y
 sudo apt install libssl-dev zlib1g-dev gcc g++ make -y
-#sudo apt install wkhtmltopdf -y
 sudo apt install cups -y
 sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-config-printer -y
 sudo apt install cups-bsd -y
@@ -17,19 +16,27 @@ sudo apt install ssh -y
 sudo apt install putty -y
 sudo apt install net-tools -y
 sudo apt install samba -y
-sudo apt install apache2 php php-cli libapache2-mod-php curl -y
+sudo apt install apache2 php php7.4-cli libapache2-mod-php curl -y
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
-sudo apt install git php-gd php-xml php-xmlrpc php-curl php-soap php-zip php-mbstring libphp-embed -y
+sudo apt install git php7.4-gd php7.4-xml php7.4-xmlrpc php7.4-curl php7.4-soap php7.4-zip php7.4-mbstring libphp7.4-embed -y
 sudo apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smbclient -y
 sudo apt install ttf-mscorefonts-installer -y
 sudo apt install printer-driver-all -y
 
+os_version=$(lsb_release -rs)
 . /etc/os-release
 
-#sudo wget 'https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb'
-sudo wget 'https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb -O wkhtmltox_0.12.6-1.focal_amd64.deb'
-sudo apt install -y './wkhtmltox_0.12.6-1.'$VERSION_CODENAME'_amd64.deb'
+if (( $(echo "$os_version >= 20.04" | bc -l) )); then
+  echo "A versão do Ubuntu é maior do que 20.04."
+  sudo apt-get -y install xorg-server-source
+  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
+else
+  echo "A versão do Ubuntu é menor ou igual a 20.04."
+  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
+fi
+
+sudo apt install -y './wkhtmltox_0.12.6.1.'$VERSION_CODENAME'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
 echo 'Criando usuário melinux'
