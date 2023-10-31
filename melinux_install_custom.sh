@@ -16,6 +16,10 @@ apt install ssh -y
 apt install putty -y
 apt install net-tools -y
 apt install samba -y
+# Instalando depências do php 7.4
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
 apt install apache2 php php7.4-cli libapache2-mod-php curl -y
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
