@@ -34,7 +34,7 @@ if (( $(echo "$os_version >= 20.04" | bc -l) )); then
   sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
 else
   echo "A versão do Ubuntu é menor ou igual a 20.04."
-  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
+  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
 fi
 
 sudo apt install -y './wkhtmltox_0.12.6.1.'$VERSION_CODENAME'_amd64.deb'
