@@ -16,14 +16,14 @@ apt install ssh -y
 apt install putty -y
 apt install net-tools -y
 apt install samba -y
+sudo apt install git -y
 # Instalando depências do php 7.4
 sudo apt install software-properties-common -y
-sudo add-apt-repository ppa:ondrej/php
-sudo apt update
-apt install apache2 php php7.4-cli libapache2-mod-php curl -y
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt install php7.4-{cli,common,curl,soap,zip,gd,mysql,xml,xmlrpc,mbstring,json,intl,embed} -y
+sudo apt install apache2 libapache2-mod-php curl -y
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-apt install git php7.4-gd php7.4-xml php7.4-xmlrpc php7.4-curl php7.4-soap php7.4-zip php7.4-mbstring libphp7.4-embed -y
 apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smbclient -y
 apt install ttf-mscorefonts-installer -y
 apt install printer-driver-all -y
