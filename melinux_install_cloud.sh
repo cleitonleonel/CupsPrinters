@@ -13,7 +13,6 @@ sudo apt install build-essential cmake libcups2-dev libcupsimage2-dev system-con
 sudo apt install cups-bsd -y
 sudo apt install mutt -y
 sudo apt install ssh -y
-sudo apt install putty -y
 sudo apt install net-tools -y
 sudo apt install samba -y
 sudo apt install apache2 php php7.4-cli libapache2-mod-php curl -y
