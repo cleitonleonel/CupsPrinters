@@ -17,6 +17,7 @@ sudo apt install putty -y
 sudo apt install net-tools -y
 sudo apt install samba -y
 sudo apt install git -y
+sudo apt install imagemagick -y
 # Instalando depências do php 7.4
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:ondrej/php -y
