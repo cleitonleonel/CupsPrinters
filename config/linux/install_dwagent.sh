@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define o diretório onde os arquivos do Dwagent serão instalados
-DIR="/usr/share/dwagent/runtime/bin/"
+DIR="$HOME/dwagent"
 
 # Função para instalação do Dwagent
 install() {
@@ -17,10 +17,23 @@ install() {
   fi
 }
 
+remove_and_reinstall () {
+  sudo "$HOME"/dwagent/native/dwagsvc stop
+  sudo "$HOME"/dwagent/native/dwagsvc delete
+  sudo rm -rf "$HOME"/.config/
+  sudo rm -rf "$HOME"/dwagent
+  sudo rm -rf /usr/share/dwagent
+  sudo rm -f /etc/dwagent
+
+  install
+}
+
 # Verifica se o diretório não existe
 if [ ! -d "$DIR" ]; then
   echo "Installing files in ${DIR}..."
   install
+else
+  remove_and_reinstall
 fi
 
 # Para e desativa o serviço dwagent.service
@@ -37,9 +50,11 @@ sudo chown "$USER:$USER" "$HOME/.config/systemd/user/dwagent.service"
 
 # Modifica o arquivo de serviço para usar default.target
 sed -i "s/WantedBy=multi-user.target/WantedBy=default.target/" "$HOME/.config/systemd/user/dwagent.service"
+sudo sed -i 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm3/custom.conf
 
 # Define as permissões do diretório do Dwagent
-sudo chown -R "$USER:$USER" /usr/share/dwagent
+# sudo chown -R "$USER:$USER" /usr/share/dwagent
+sudo chown -R "$USER:$USER" "$HOME"/dwagent
 
 # Habilita o login do usuário no sistema
 sudo loginctl enable-linger "$USER"
