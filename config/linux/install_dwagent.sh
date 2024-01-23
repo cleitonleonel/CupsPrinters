@@ -24,7 +24,6 @@ remove_and_reinstall () {
   sudo rm -rf "$HOME"/dwagent
   sudo rm -rf /usr/share/dwagent
   sudo rm -f /etc/dwagent
-
   install
 }
 
@@ -33,6 +32,7 @@ if [ ! -d "$DIR" ]; then
   echo "Installing files in ${DIR}..."
   install
 else
+  echo "Reinstalling files in ${DIR}..."
   remove_and_reinstall
 fi
 
