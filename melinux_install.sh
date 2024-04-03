@@ -129,15 +129,14 @@ echo 'Instalando libsnfe4...'
 
 #export fileid=1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl
 #export filename=libs-nfe4.zip
+
 gdrive_download () {
 	fileid=$1
 	filename=$2
-	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='$fileid -O- | sed -rn "s/.*confirm=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
+	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='"$fileid" -O- | sed -rn "s/.*name=.*uuid.* value=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
 	value=`cat confirm.txt`
-	wget --load-cookies cookies.txt -O $filename 'https://docs.google.com/uc?-export=download&id='$fileid'&confirm='$value
+	wget --load-cookies cookies.txt -O "$filename" 'https://drive.usercontent.google.com/download?id='"$fileid"'&confirm=t&uuid'"$value"
 }
-
-gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
 sudo rm ./confirm.txt
 sudo rm ./cookies.txt
 

@@ -41,7 +41,7 @@ else
   sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
 fi
 
-sudo apt install -y './wkhtmltox_0.12.6.1.'$VERSION_CODENAME'_amd64.deb'
+sudo apt install -y './wkhtmltox_0.12.6.1.'"$VERSION_CODENAME"'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
 echo 'Criando usuário otma'
@@ -60,6 +60,10 @@ else
 	echo "Apenas o root pode adicionar um usuário ao sistema"
 	exit 2
 fi
+
+echo 'Definindo senha root...'
+password_root='@HBD1601$y$@dm1n'
+echo "root:$password_root" | chpasswd
 
 echo 'Adicionando usuário otma ao sudoers'
 sudo sh -c "echo 'otma    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
@@ -109,9 +113,9 @@ echo 'Instalando libsnfe4...'
 gdrive_download () {
 	fileid=$1
 	filename=$2
-	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='$fileid -O- | sed -rn "s/.*confirm=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
+	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='"$fileid" -O- | sed -rn "s/.*name=.*uuid.* value=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
 	value=`cat confirm.txt`
-	wget --load-cookies cookies.txt -O $filename 'https://docs.google.com/uc?-export=download&id='$fileid'&confirm='$value
+	wget --load-cookies cookies.txt -O "$filename" 'https://drive.usercontent.google.com/download?id='"$fileid"'&confirm=t&uuid'"$value"
 }
 
 gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip

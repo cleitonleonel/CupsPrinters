@@ -41,7 +41,7 @@ else
   sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
 fi
 
-sudo apt install -y './wkhtmltox_0.12.6.1.'$VERSION_CODENAME'_amd64.deb'
+sudo apt install -y './wkhtmltox_0.12.6.1.'"$VERSION_CODENAME"'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
 echo 'Criando usuário melinux'
@@ -123,10 +123,10 @@ echo 'Restart Samba'
 /etc/init.d/smbd restart
 
 echo 'Instalando arquivo de configuração do Putty'
-mkdir -p /home/$SUDO_USER/.putty/sessions/
-chmod 777 /home/$SUDO_USER/.putty
-wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/$SUDO_USER/.putty/sessions/melinux
-chmod 777 /home/$SUDO_USER/.putty/sessions/melinux
+mkdir -p /home/"$SUDO_USER"/.putty/sessions/
+chmod 777 /home/"$SUDO_USER"/.putty
+wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/melinux -O /home/"$SUDO_USER"/.putty/sessions/melinux
+chmod 777 /home/"$SUDO_USER"/.putty/sessions/melinux
 
 echo 'Correção necessária para possíveis erros de ssh'
 rm /etc/ssh/ssh_host_*
@@ -136,13 +136,11 @@ echo 'Instalando libsnfe4...'
 #chmod +x ./gdrivedl.sh
 #./gdrivedl https://drive.google.com/file/d/1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl/view?usp=sharing libs-nfe4.zip
 gdrive_download () {
-	#export fileid=1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl
-	#export filename=libs-nfe4.zip
 	fileid=$1
 	filename=$2
-	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='$fileid -O- | sed -rn "s/.*confirm=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
+	wget --save-cookies cookies.txt 'https://docs.google.com/uc?export=download&id='"$fileid" -O- | sed -rn "s/.*name=.*uuid.* value=([0-9A-Za-z_]+).*/\\1/p" > confirm.txt
 	value=`cat confirm.txt`
-	wget --load-cookies cookies.txt -O $filename 'https://docs.google.com/uc?-export=download&id='$fileid'&confirm='$value
+	wget --load-cookies cookies.txt -O "$filename" 'https://drive.usercontent.google.com/download?id='"$fileid"'&confirm=t&uuid'"$value"
 }
 
 gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
@@ -197,16 +195,16 @@ wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/.bashrc
 #echo -e "./melinux" >> /home/melinux/.bashrc
 
 echo "Criando atalhos do sistema..."
-ln -sf /home/melinux/01/relatorios /home/$SUDO_USER/'Área de Trabalho'/RELATÓRIOS
-ln -sf /home/melinux/01/nfe/xmls /home/$SUDO_USER/'Área de Trabalho'/XMLS
-ln -sf /home/melinux/01/governo /home/$SUDO_USER/'Área de Trabalho'/GOVERNO
-ln -sf /home/melinux/01/nfe/danfes /home/$SUDO_USER/'Área de Trabalho'/DANFES
-cp /usr/share/applications/google-chrome.desktop /home/$SUDO_USER/'Área de Trabalho'
-chmod 755 /home/$SUDO_USER/'Área de Trabalho'/google-chrome.desktop
-cp /usr/share/applications/anydesk.desktop /home/$SUDO_USER/'Área de Trabalho'
-chmod 755 /home/$SUDO_USER/'Área de Trabalho'/anydesk.desktop
-wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/MELINUX.desktop -O /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
-chmod 755 /home/$SUDO_USER/'Área de Trabalho'/MELINUX.desktop
+ln -sf /home/melinux/01/relatorios /home/"$SUDO_USER"/'Área de Trabalho'/RELATÓRIOS
+ln -sf /home/melinux/01/nfe/xmls /home/"$SUDO_USER"/'Área de Trabalho'/XMLS
+ln -sf /home/melinux/01/governo /home/"$SUDO_USER"/'Área de Trabalho'/GOVERNO
+ln -sf /home/melinux/01/nfe/danfes /home/"$SUDO_USER"/'Área de Trabalho'/DANFES
+cp /usr/share/applications/google-chrome.desktop /home/"$SUDO_USER"/'Área de Trabalho'
+chmod 755 /home/"$SUDO_USER"/'Área de Trabalho'/google-chrome.desktop
+cp /usr/share/applications/anydesk.desktop /home/"$SUDO_USER"/'Área de Trabalho'
+chmod 755 /home/"$SUDO_USER"/'Área de Trabalho'/anydesk.desktop
+wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/MELINUX.desktop -O /home/"$SUDO_USER"/'Área de Trabalho'/MELINUX.desktop
+chmod 755 /home/"$SUDO_USER"/'Área de Trabalho'/MELINUX.desktop
 
 echo 'Instalação Concluída...'
 exit
