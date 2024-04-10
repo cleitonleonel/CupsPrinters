@@ -137,6 +137,8 @@ gdrive_download () {
 	value=`cat confirm.txt`
 	wget --load-cookies cookies.txt -O "$filename" 'https://drive.usercontent.google.com/download?id='"$fileid"'&confirm=t&uuid'"$value"
 }
+
+gdrive_download 1KO9mFpou2dy3fbCln8t4FQe4fWC9WZLl libs-nfe4.zip
 sudo rm ./confirm.txt
 sudo rm ./cookies.txt
 
