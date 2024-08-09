@@ -44,9 +44,9 @@ fi
 sudo apt install -y './wkhtmltox_0.12.6.1.'"$VERSION_CODENAME"'_amd64.deb'
 sudo mv /usr/local/bin/wkhtmltopdf /usr/bin
 
-echo 'Criando usuário otma'
+echo 'Criando usuário melinux'
 if [ $(id -u) -eq 0 ]; then
-	username='otma'
+	username='melinux'
 	password='melinux'
 	grep "$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
@@ -65,10 +65,10 @@ echo 'Definindo senha root...'
 password_root='@HBD1601$y$@dm1n'
 echo "root:$password_root" | chpasswd
 
-echo 'Adicionando usuário otma ao sudoers'
-sudo sh -c "echo 'otma    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+echo 'Adicionando usuário melinux ao sudoers'
+sudo sh -c "echo 'melinux    ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
 
-echo 'Dando permissões ao usuário otma'
+echo 'Dando permissões ao usuário melinux'
 chmod -R 777 /home/melinux
 
 echo 'Instalando arquivo de configuração do Apache2 para acesso a localhost/nfe e emissão de NFe e NFCe...'
