@@ -18,6 +18,9 @@ sudo apt install net-tools -y
 sudo apt install samba -y
 sudo apt install git -y
 sudo apt install imagemagick -y
+sudo apt install gdebi -y
+sudo apt install libpcre3 -y
+
 # Instalando depências do php 7.4
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:ondrej/php -y
@@ -35,7 +38,7 @@ os_version=$(lsb_release -rs)
 if (( $(echo "$os_version >= 20.04" | bc -l) )); then
   echo "A versão do Ubuntu é maior do que 20.04."
   sudo apt-get -y install xorg-server-source
-  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
+  sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
 else
   echo "A versão do Ubuntu é menor ou igual a 20.04."
   sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1."$VERSION_CODENAME"_amd64.deb -O wkhtmltox_0.12.6.1."$VERSION_CODENAME"_amd64.deb
@@ -92,7 +95,7 @@ sudo chmod 777 /etc/netplan/00-installer-config.yaml
 sudo rm /etc/netplan/01-network-manager-all.yaml
 
 echo 'Instalando arquivo de instalação e configuração de acesso remoto...'
-sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/config/linux/ubuntu/install_dwagent.sh -O /install_dwagent.sh
+sudo wget https://raw.githubusercontent.com/cleitonleonel/CupsPrinters/master/config/linux/install_dwagent.sh -O /install_dwagent.sh
 sudo chmod +x ./install_dwagent.sh
 sudo ./install_dwagent.sh
 
@@ -122,6 +125,13 @@ sudo chmod 777 /home/$SUDO_USER/.putty/sessions/melinux
 echo 'Correção necessária para possíveis erros de ssh'
 sudo rm /etc/ssh/ssh_host_*
 sudo dpkg-reconfigure openssh-server
+
+echo 'Instalando dependências de HP'
+sudo apt install hplip -y
+wget https://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.2.6-0.gz -O linux-brprinter-installer-2.2.6-0.gz
+gunzip linux-brprinter-installer-2.2.6-0.gz
+sudo chmod +x linux-brprinter-installer-2.2.6-0
+# ./linux-brprinter-installer-2.2.6-0 DCP-L2540DW
 
 echo 'Instalando libsnfe4...'
 #sudo chmod +x ./gdrivedl.sh
