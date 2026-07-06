@@ -23,14 +23,29 @@ sudo apt install libpcre3 -y
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
-sudo apt install php8.4-{cli,common,curl,soap,zip,gd,mysql,xml,xmlrpc,mbstring,json,intl} -y
+sudo apt install php8.4-{cli,common,curl,soap,zip,gd,mysql,xml,xmlrpc,mbstring,intl} -y
 sudo apt install apache2 libapache2-mod-php curl -y
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 sudo apt install bison flex xmlsec1 libxml2-utils openssl rename putty-tools smbclient -y
-sudo apt install ttf-mscorefonts-installer -y
 sudo apt install xfonts-base xfonts-75dpi -y
+
+echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+sudo apt install ttf-mscorefonts-installer -y
+
 sudo apt install printer-driver-all -y
+
+sudo mkdir -p /usr/share/fonts/truetype/msttcorefonts
+
+for f in andale32.exe arial32.exe arialb32.exe comic32.exe courie32.exe georgi32.exe impact32.exe times32.exe trebuc32.exe verdan32.exe webdin32.exe
+do
+    wget -q "https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/$f" -O "/tmp/$f"
+    sudo cabextract -F '*.TTF' "/tmp/$f" -d /usr/share/fonts/truetype/msttcorefonts
+done
+
+sudo fc-cache -fv
+
+sudo apt upgrade -y
 
 os_version=$(lsb_release -rs)
 . /etc/os-release
@@ -150,12 +165,6 @@ sudo chmod 777 -R /var/www/melinux
 
 echo 'Visualisando permissões do diretório base...'
 sudo ls -ltr /var/www/melinux
-
-echo 'Compilando sistema melinux'
-./compila
-
-echo 'movendo executável para /home/melinux'
-mv melinux /home/melinux
 
 echo 'Instalação Concluída...'
 exit
